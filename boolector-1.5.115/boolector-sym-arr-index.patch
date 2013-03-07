@@ -1,0 +1,33 @@
+diff -u org/boolector.c new/boolector.c
+--- a/btorexp.c	2012-07-26 11:31:10.000000000 +0200
++++ b/btorexp.c	2012-09-25 15:28:41.855020676 +0200
+@@ -8771,6 +8771,19 @@ synthesize_all_array_rhs (Btor * btor)
+     }
+ }
+ 
++
++static void
++synthesize_all_reads (Btor * btor)
++{
++   BtorNode *n;
++   int i;
++   for (i = 0; i < btor->unique_table.size; i++)
++     for (n = btor->unique_table.chains[i]; n; n = n->next)
++       if (BTOR_IS_READ_NODE (n))
++        synthesize_exp (btor, n, 0);
++}
++
++
+ static int
+ btor_sat_aux_btor (Btor * btor)
+ {
+@@ -8822,6 +8835,7 @@ UNSAT:
+       {
+ 	synthesize_all_var_rhs (btor);
+ 	synthesize_all_array_rhs (btor);
++        synthesize_all_reads (btor);
+       }
+ 
+   } while (btor->unsynthesized_constraints->count > 0);
+#Only in boolector-1.5.118-patched/build/boolector-1.5.118-6b56be4-121013: btorexp.c~
+

@@ -22,7 +22,9 @@ unpack() {
   cd $build_dir &&
   patch -p1 < $patches_dir/minisat_include_path.patch &&
   patch -p1 < $patches_dir/0003*.patch &&
-  patch -p1 < $patches_dir/0014*.patch
+  patch -p1 < $patches_dir/0014*.patch &&
+  patch -p1 < $patches_dir/boolector-sym-arr-index.patch &&
+  true
 }
 
 pre_build() {
