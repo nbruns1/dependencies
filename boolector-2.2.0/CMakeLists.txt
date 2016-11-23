@@ -5,8 +5,8 @@ cmake_minimum_required(VERSION 2.8)
 find_package(Lingeling REQUIRED)
 include_directories( ${Lingeling_INCLUDE_DIR} )
 
-find_package(MiniSat REQUIRED)
-include_directories( ${MiniSat_INCLUDE_DIR} )
+#find_package(MiniSat REQUIRED)
+#include_directories( ${MiniSat_INCLUDE_DIR} )
 
 set(STATIC_OR_SHARED SHARED CACHE STRING "Build STATIC or SHARED libaries")
 
@@ -15,7 +15,7 @@ if("${CMAKE_VERSION}" VERSION_GREATER 2.8.10)
   string(TIMESTAMP COMPILED_TIMESTAMP)
 endif()
 
-set(BTOR_C_FLAGS "-DBTOR_USE_LINGELING -DBTOR_USE_MINISAT -DBTOR_ENABLE_BETA_REDUCTION_PROBING")
+set(BTOR_C_FLAGS "-DBTOR_USE_LINGELING -DBTOR_ENABLE_BETA_REDUCTION_PROBING")
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DNDEBUG -DNBTORLOG ${BTOR_C_FLAGS}")
 
@@ -80,16 +80,16 @@ ${SRC_PREFIX}/simplifier/btorelimapplies.c
 ${SRC_PREFIX}/simplifier/btorack.c
 ${SRC_PREFIX}/simplifier/btorskel.c
 ${SRC_PREFIX}/simplifier/btorunconstrained.c
-${SRC_PREFIX}/btorminisat.cc
+#${SRC_PREFIX}/btorminisat.cc
 )
 
-set_source_files_properties(${SRC_PREFIX}/btorminisat.cc PROPERTIES LANGUAGE C )
+#set_source_files_properties(${SRC_PREFIX}/btorminisat.cc PROPERTIES LANGUAGE C )
 
 add_library(Boolector_libboolector
   ${STATIC_OR_SHARED}
   ${libboolector_SRC}
 )
-target_link_libraries(Boolector_libboolector ${Lingeling_LIBRARIES} ${MiniSat_LIBRARIES} m) 
+target_link_libraries(Boolector_libboolector ${Lingeling_LIBRARIES} m) 
 set_target_properties(Boolector_libboolector PROPERTIES OUTPUT_NAME boolector)
 
 add_executable(Boolector_boolector
