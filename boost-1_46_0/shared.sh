@@ -32,18 +32,16 @@ build_install() {
     variant=release
     link=shared
     toolset=gcc
+    cxxflags="-std=c++11"
   "
   LIBRARIES="
     --with-date_time
     --with-filesystem
     --with-graph
-    --with-iostreams
     --with-math
     --with-program_options
-    --with-python
     --with-random
     --with-regex
-    --with-serialization
     --with-signals
     --with-system
     --with-thread
@@ -54,16 +52,16 @@ build_install() {
     local needed="false"
     if [ ! -f /usr/include/zlib.h ] ; then
       echo 'zlib.h was not found.'
-      needed="true"
+      #needed="true"
     fi
     if [ ! -f /usr/include/bzlib.h ] ; then
       echo 'bzlib.h was not found'
-      needed="true"
+#      needed="true"
     fi
     local PYTHON_NEEDED=`ls /usr/include/python*/Python.h &>/dev/null && echo false || echo true`
     if [ "$PYTHON_NEEDED" = "true" ] ; then
       echo 'Python.h was not found'
-      needed="true"
+#      needed="true"
     fi
     if [ "$needed" = "true" ] ; then
       echo "Install the packages containing the above header files to compile boost properly."
