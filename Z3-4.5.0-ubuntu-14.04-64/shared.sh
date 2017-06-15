@@ -25,8 +25,8 @@ unpack(){
 }
 
 pre_build() {
-  cd $build_dir &&
-  install_cmake_files $cmake_files_dir
+  cp $cmake_config_file $build_dir
+  sed -i "1s/.*$/set(Z3_VERSION $version)\n&/g" $build_dir/Z3Config.cmake
 }
 
 build_install() {
@@ -34,8 +34,8 @@ build_install() {
     echo '$target is undefined'
     exit 1
   fi
-  cd $build_dir &&
-  cmake_build_install
+  mkdir -p $target &&
+  cp -r $build_dir/* $target
 }
 
 # vim: ts=2 sw=2 et
