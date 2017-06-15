@@ -18,7 +18,7 @@ url=https://github.com/Z3Prover/z3/releases/download/$package-$version2/$source
 unpack(){
   cd $cache &&
   message "unpacking $package" &&
-  tar -xf $source &&
+  unzip $source &&
   message "finished unpacking $package" &&
   rm -rf $build_dir &&
   mv -f $cache/$package-$version $build_dir
