@@ -9,8 +9,6 @@ if [ -z "$package_dir" ] ; then
   exit 1
 fi
 package=z3
-version=4.5.0-x64-ubuntu-14.04
-version2=4.5.0
 source=$package-$version.zip
 build_dir=$build/$package-$version
 url=https://github.com/Z3Prover/z3/releases/download/$package-$version2/$source
